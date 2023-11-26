@@ -1,5 +1,10 @@
 ﻿@model List<ToDoTask>
-
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary">Current Task List </h2>
+    </div>
+</div>
+<a class="btn btn-success mb-3 p-3" asp-action="CreateToDoTask" asp-controller="ToDoTask">Create Task</a>
 @if (Model.Count < 1)
 {
     <h1>Dont have Current Tasks!</h1>

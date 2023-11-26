@@ -2,6 +2,7 @@
 using Tasks.IRepositories;
 using Tasks.IServices;
 using Tasks.Models;
+using Tasks.ViewModels;
 
 namespace Tasks.Services
 {
@@ -20,6 +21,15 @@ namespace Tasks.Services
         public async Task<List<ToDoTask>> GetCompletedTasksInServiceAsync()
         {
             return await _toDoTaskRepository.GetCompletedToDoTaskAsync();
+        }
+        public async Task<bool> CreateToDoTaskPost(ToDoTaskCreateViewModel toDoTaskCreateViewModel)
+        {
+            if(toDoTaskCreateViewModel != null)
+            {
+                var toDoTask = new ToDoTask { Name = toDoTaskCreateViewModel.Name, Description = toDoTaskCreateViewModel.Description};
+                return await _toDoTaskRepository.AddToDoTasksync(toDoTask);
+            }
+            return false;
         }
     }
 }

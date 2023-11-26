@@ -1,0 +1,30 @@
+﻿@using Tasks.ViewModels;
+﻿
+@model ToDoTaskCreateViewModel
+
+<div class="row g-5">
+    <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Create new Task</h4>
+        <form asp-controller="ToDoTask" asp-action="CreateToDoTask" method="post" class="needs-validation" novalidate="">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label asp-for="Name" >Name Task</label>
+                    <input asp-for="Name" type="text" class="form-control" id="Name" placeholder="" value="" required="">
+                    <div class="invalid-feedback">
+                        Valid name is required.
+                    </div>
+                </div>                
+                <div class="col-sm-12">
+                    <label asp-for="Description" >Description</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <div class="invalid-feedback">
+                        Valid description is required.
+                    </div>
+                </div>               
+                <hr class="my-4">
+
+                <button class="w-25 btn btn-primary btn-lg" type="submit">Create new Task</button>
+            </div>
+        </form>
+    </div>
+</div>
