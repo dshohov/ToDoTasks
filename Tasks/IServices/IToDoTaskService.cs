@@ -10,5 +10,7 @@ namespace Tasks.IServices
         Task<bool> CreateToDoTaskPost(ToDoTaskCreateViewModel toDoTaskCreateViewModel);
         Task<bool> ChangeStateToDoTask(int idTask);
         Task<bool> DeleteToDoTask(int idTask);
+        Task<ToDoTaskEditViewModel> GetToDoTaskEditViewModel(int idTask);
+        Task<bool> EditToDoTaskAsync(ToDoTaskEditViewModel toDoTaskEditViewModel);
     }
 }

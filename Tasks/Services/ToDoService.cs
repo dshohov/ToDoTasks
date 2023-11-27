@@ -51,5 +51,31 @@ namespace Tasks.Services
             }
             return false;
         }
+
+        public async Task<ToDoTaskEditViewModel> GetToDoTaskEditViewModel(int idTask)
+        {
+            var toDoTask = await _toDoTaskRepository.GetToDoTaskByIdAsync(idTask);
+            if(toDoTask != null)
+            {
+                var toDoTaskEditViewModel = new ToDoTaskEditViewModel() { Id = toDoTask.Id, Name = toDoTask.Name, Description = toDoTask.Description };
+                return toDoTaskEditViewModel;
+            }
+            else
+            {
+                var toDoTaskEditViewModel = new ToDoTaskEditViewModel();
+                return toDoTaskEditViewModel;
+            }            
+        }
+        public async Task<bool> EditToDoTaskAsync(ToDoTaskEditViewModel toDoTaskEditViewModel)
+        {
+            var toDoTask = await _toDoTaskRepository.GetToDoTaskByIdAsync(toDoTaskEditViewModel.Id);
+            if (toDoTask != null)
+            {
+                toDoTask.Name = toDoTaskEditViewModel.Name;
+                toDoTask.Description = toDoTaskEditViewModel.Description;
+                return await _toDoTaskRepository.EditToDoTaskAsync(toDoTask);
+            }
+            return false;
+        }
     }
 }
