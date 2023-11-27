@@ -1,7 +1,7 @@
 ﻿@model List<ToDoTask>
 <div class="row">
     <div class="col-6">
-        <h2 class="text-primary">Current Task List </h2>
+        <h1 class="text-primary">Current Task List </h1>
     </div>
 </div>
 <a class="btn btn-success mb-3 p-3" asp-action="CreateToDoTask" asp-controller="ToDoTask">Create Task</a>
@@ -11,5 +11,44 @@
 }
 else
 {
-    <h1>Current Tasks</h1>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action list-group-item-primary ">
+            <div class="row justify-content-left">
+                <div class="col-md-6">Task Name</div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+            </div>
+        </li>
+        @foreach (ToDoTask toDoTask in Model)
+        {
+            <li class="list-group-item">
+                <div class="row justify-content-left">
+                    <div class="col-md-6"><h4>@toDoTask.Name</h4></div>
+                    <div class="col-md-6 row justify-content-end">
+                        <button class="btn btn-info col-md-2 m-1 text-white" onclick="toggleDescription('@toDoTask.Id')">Description</button>
+                        <a class="btn btn-outline-success col-md-2 m-1" asp-action="ChangeStateTask" asp-route-stateTaskNow="@toDoTask.IsCompleted" asp-controller="ToDoTask" asp-route-idTask="@toDoTask.Id">Complated</a>
+                        <button class="btn btn-outline-warning col-md-2 m-1">Edit</button>
+                        <a asp-action="DeleteToDoTask" asp-controller="ToDoTask" asp-route-stateTaskNow="@toDoTask.IsCompleted" asp-route-idTask="@toDoTask.Id" class="btn btn-outline-danger col-md-2 m-1">Delete</a>
+                    </div>
+                </div>
+                <div class="alert col-md-6  alert-success description" style="display:none;" id="@($"description-{toDoTask.Id}")" role="alert">
+                    <h4 class="alert-heading">Description</h4>
+                    <div>@toDoTask.Description</div>
+                </div>
+            </li>
+        }
+    </ul>
 }
+
+<script>
+    function toggleDescription(itemId) {
+        var descriptionElement = document.getElementById(`description-${itemId}`);
+        if (descriptionElement.style.display === 'none') {
+            descriptionElement.style.display = 'block';
+        } else {
+            descriptionElement.style.display = 'none';
+        }
+    }
+</script>

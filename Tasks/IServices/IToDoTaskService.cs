@@ -8,5 +8,7 @@ namespace Tasks.IServices
         Task<List<ToDoTask>> GetCurrentTasksInServiceAsync();
         Task<List<ToDoTask>> GetCompletedTasksInServiceAsync();
         Task<bool> CreateToDoTaskPost(ToDoTaskCreateViewModel toDoTaskCreateViewModel);
+        Task<bool> ChangeStateToDoTask(int idTask);
+        Task<bool> DeleteToDoTask(int idTask);
     }
 }

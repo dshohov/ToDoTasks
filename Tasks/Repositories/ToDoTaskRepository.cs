@@ -12,18 +12,18 @@ namespace Tasks.Repositories
         {
             _context = context;
         }
-        public async Task<bool> AddToDoTasksync(ToDoTask toDoTask)
+        public async Task<bool> AddToDoTaskAsync(ToDoTask toDoTask)
         {
             await _context.AddAsync(toDoTask);
             return await SaveAsync();
         }
 
-        public async Task<bool> DeleteToDoTask(ToDoTask toDoTask)
+        public async Task<bool> DeleteToDoTaskAsync(ToDoTask toDoTask)
         {
             await Task.Run(() => _context.Remove(toDoTask));
             return await SaveAsync();
         }
-        public async Task<bool> EditToDoTask(ToDoTask toDoTask)
+        public async Task<bool> EditToDoTaskAsync(ToDoTask toDoTask)
         {
             
             await Task.Run(() => _context.Update(toDoTask));
@@ -44,6 +44,10 @@ namespace Tasks.Repositories
         {
             var completedTasks = await _context.ToDoTasks.Where(x => x.IsCompleted == true).ToListAsync();
             return completedTasks;
+        }
+        public async Task<ToDoTask> GetToDoTaskByIdAsync(int idTask)
+        {
+            return await _context.ToDoTasks.FindAsync(idTask);
         }
     }
 }

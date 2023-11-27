@@ -27,7 +27,27 @@ namespace Tasks.Services
             if(toDoTaskCreateViewModel != null)
             {
                 var toDoTask = new ToDoTask { Name = toDoTaskCreateViewModel.Name, Description = toDoTaskCreateViewModel.Description};
-                return await _toDoTaskRepository.AddToDoTasksync(toDoTask);
+                return await _toDoTaskRepository.AddToDoTaskAsync(toDoTask);
+            }
+            return false;
+        }
+        public async Task<bool> ChangeStateToDoTask(int idTask)
+        {
+            var toDoTask = await _toDoTaskRepository.GetToDoTaskByIdAsync(idTask);
+            if(toDoTask != null)
+            {
+                toDoTask.IsCompleted = !toDoTask.IsCompleted;
+                return await _toDoTaskRepository.EditToDoTaskAsync(toDoTask);
+            }
+            return false;
+        }
+        
+        public async Task<bool> DeleteToDoTask(int idTask)
+        {
+            var toDoTask = await _toDoTaskRepository.GetToDoTaskByIdAsync(idTask);
+            if (toDoTask != null)
+            {
+                return await _toDoTaskRepository.DeleteToDoTaskAsync(toDoTask);
             }
             return false;
         }

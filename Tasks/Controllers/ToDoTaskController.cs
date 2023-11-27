@@ -39,7 +39,30 @@ namespace Tasks.Controllers
                 return RedirectToAction("CurrentTasks");
             else
                 return RedirectToAction("Error");
-
+        }
+        public async Task<IActionResult> ChangeStateTask(int idTask, bool stateTaskNow)
+        {
+            if(await _toDoTaskService.ChangeStateToDoTask(idTask))
+            {
+                if(stateTaskNow)
+                    return RedirectToAction("CompletedTasks");
+                else
+                    return RedirectToAction("CurrentTasks");
+            }                
+            else
+                return RedirectToAction("Error");
+        }
+        public async Task<IActionResult> DeleteToDoTask(int idTask, bool stateTaskNow)
+        {
+            if(await _toDoTaskService.DeleteToDoTask(idTask))
+            {
+                if (stateTaskNow)
+                    return RedirectToAction("CompletedTasks");
+                else
+                    return RedirectToAction("CurrentTasks");
+            }
+            else
+                return RedirectToAction("Error");
         }
     }
 }
