@@ -78,6 +78,7 @@ namespace Tasks.Controllers
             
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditToDoTaskAsync(ToDoTaskEditViewModel toDoTaskEditViewModel)
         {
             if(ModelState.IsValid)
